@@ -3,7 +3,7 @@
 import axios from 'axios';
 import * as z from "zod";
 import { Heading } from "@/components/heading";
-import { MessageSquare } from "lucide-react";
+import { Code } from "lucide-react";
 import { useForm } from "react-hook-form";
 
 import { formSchema } from "./constants";
@@ -26,7 +26,7 @@ import UserAvatar from '@/components/user-avatar';
 import BotAvatar from '@/components/bot-avatar';
 // import { CreateChatCompletionRequestMessage } from '@/node_modules/openai/resources/chat'
 
-const ConversationPage = () => {
+const CodePage = () => {
     const router = useRouter();
     const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -49,7 +49,7 @@ const ConversationPage = () => {
         const newMessages = [...messages, userMessage];
 
         //api call
-        const response = await axios.post("/api/conversation", {
+        const response = await axios.post("/api/code", {
             messages: newMessages,
         });
 
@@ -67,11 +67,11 @@ const ConversationPage = () => {
   return (
     <div>
       <Heading
-        title="Conversation"
-        description="The most sassiest convo"
-        icon={MessageSquare}
-        iconColor="text-violet-500"
-        bgColor="bg-violet-500/10"
+        title="Code Generation"
+        description="Generating code using descriptive text"
+        icon={Code}
+        iconColor="text-green-700"
+        bgColor="bg-green-700/10"
       />
       <div className="px-4 lg:px-8">
         <Form {...form}>
@@ -84,7 +84,7 @@ const ConversationPage = () => {
               render={({ field }) => (
                 <FormItem className="col-span-12 lg:col-span-10">
                   <FormControl className="m-0 p-0">
-                    <Input className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent" disabled={isLoading} placeholder="How many licks does it take to get to the center of a pushpop?" {...field} />
+                    <Input className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"  disabled={isLoading} placeholder="simple toggle button using react hooks" {...field} />
                     {/* focus visible removes the ring. Makes the whole formItem look like a large input */}
                   </FormControl>
                 </FormItem>
@@ -110,8 +110,8 @@ const ConversationPage = () => {
             {messages.map((message) => (
                 <div key={message.content} className={cn("p-8 w-full flex items-start gap-x-8 rounded-lg", message.role === 'user' ? "bg-white border border-black/10" : "bg-muted")}>
                     {message.role === 'user' ? <UserAvatar /> : <BotAvatar />}
-                    <p className='text-sm'>
-                    {message.content}
+                    <p className="text-sm">
+                      {message.content}
                     </p>
                 </div>
             ))} 
@@ -121,4 +121,4 @@ const ConversationPage = () => {
   );
 };
 
-export default ConversationPage;
+export default CodePage;
