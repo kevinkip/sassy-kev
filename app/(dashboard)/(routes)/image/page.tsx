@@ -3,9 +3,8 @@
 import axios from 'axios';
 import * as z from "zod";
 import { Heading } from "@/components/heading";
-import { Code } from "lucide-react";
+import { MessageSquare } from "lucide-react";
 import { useForm } from "react-hook-form";
-import ReactMarkdown from 'react-markdown'
 
 import { formSchema } from "./constants";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,7 +26,7 @@ import UserAvatar from '@/components/user-avatar';
 import BotAvatar from '@/components/bot-avatar';
 // import { CreateChatCompletionRequestMessage } from '@/node_modules/openai/resources/chat'
 
-const CodePage = () => {
+const ConversationPage = () => {
     const router = useRouter();
     const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -50,7 +49,7 @@ const CodePage = () => {
         const newMessages = [...messages, userMessage];
 
         //api call
-        const response = await axios.post("/api/code", {
+        const response = await axios.post("/api/conversation", {
             messages: newMessages,
         });
 
@@ -68,11 +67,11 @@ const CodePage = () => {
   return (
     <div>
       <Heading
-        title="Code Generation"
-        description="Generating code using descriptive text"
-        icon={Code}
-        iconColor="text-green-700"
-        bgColor="bg-green-700/10"
+        title="Conversation"
+        description="The most sassiest convo"
+        icon={MessageSquare}
+        iconColor="text-violet-500"
+        bgColor="bg-violet-500/10"
       />
       <div className="px-4 lg:px-8">
         <Form {...form}>
@@ -85,7 +84,7 @@ const CodePage = () => {
               render={({ field }) => (
                 <FormItem className="col-span-12 lg:col-span-10">
                   <FormControl className="m-0 p-0">
-                    <Input className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"  disabled={isLoading} placeholder="simple toggle button using react hooks" {...field} />
+                    <Input className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent" disabled={isLoading} placeholder="How many licks does it take to get to the center of a pushpop?" {...field} />
                     {/* focus visible removes the ring. Makes the whole formItem look like a large input */}
                   </FormControl>
                 </FormItem>
@@ -111,21 +110,9 @@ const CodePage = () => {
             {messages.map((message) => (
                 <div key={message.content} className={cn("p-8 w-full flex items-start gap-x-8 rounded-lg", message.role === 'user' ? "bg-white border border-black/10" : "bg-muted")}>
                     {message.role === 'user' ? <UserAvatar /> : <BotAvatar />}
-                  <ReactMarkdown
-                    components={{
-                      pre: ({ node, ...props}) => (
-                        <div className='overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg'>
-                          <pre {...props} />
-                        </div>
-                      ),
-                      code: ({ node, ...props }) => (
-                        <code className='bg-black/10 rounded-lg p-1' {...props}/>
-                      )
-                    }}
-                    className="text-sm overflow-hidden leading-7"
-                  >
-                    {message.content || ""}
-                  </ReactMarkdown>
+                    <p className='text-sm'>
+                    {message.content}
+                    </p>
                 </div>
             ))} 
         </div>
@@ -134,4 +121,4 @@ const CodePage = () => {
   );
 };
 
-export default CodePage;
+export default ConversationPage;
