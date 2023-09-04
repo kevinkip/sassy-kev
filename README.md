@@ -11,13 +11,17 @@
 
 
 # What was my motivation?
-
+- It's 2023 and AI is everywhere. The last thing I want is to be late to the party. So I decided to get familiar with OpenAI's API in generating different things i.e. code, music, videos, etc. 
 
 # Why did I build this project?
-
+- I needed the practice. And there wasn't any other way for me to get better without building a project that involves AI. (Setting up the API settings, making sure the routes weren't throwing any errors...there were a lot of errors.) 
 
 # What did I learn?
+- Take your time when setting up the API's with your components. There are a few updates to OpenAI (ver.3 vs ver.4) that aren't big per se, but they needed some time to adjust the code towards. 
 
+Also, I can see the potential business opportunity here in the future by developing an AI Saas project. 
+
+Just haven't drafted the whole thing yet. But otherwise, this was fun and I'm looking forward to making more projects with OpenAI.
 
 ## Installation
 
