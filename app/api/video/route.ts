@@ -4,6 +4,7 @@ import { checkApiLimit, increaseApiLimit } from '@/lib/api-limits';
 
 
 import Replicate from 'replicate';
+import { checkSubscription } from '@/lib/subscription';
 
 const replicate = new Replicate({
     auth: process.env.REPLICATE_API_TOKEN!,
@@ -27,9 +28,10 @@ export async function POST(
         }
 
         const freeTrial = await checkApiLimit();
+        const isPro = await checkSubscription();
 
         //if we passed free trial
-        if(!freeTrial){
+        if(!freeTrial && !isPro){
             return new NextResponse("Free trial has expired.", { status: 403 });
         }
 
@@ -43,7 +45,9 @@ export async function POST(
         );
 
         //test
-        await increaseApiLimit();
+        if(!isPro){
+          await increaseApiLimit();
+        }
 
         return NextResponse.json(response);
 

@@ -10,10 +10,12 @@ import { Progress } from "./ui/progress";
 
 interface FreeCounterProps {
     apiLimitCount: number;
+    isPro: boolean;
 }
 
 export const FreeCounter = ({
-    apiLimitCount = 0
+    apiLimitCount = 0,
+    isPro = false,
 }: FreeCounterProps) => {
     const proModal = useProModal();
     const [mounted, setMounted] = useState(false);
@@ -26,6 +28,10 @@ export const FreeCounter = ({
         return null;
     }
 
+    if(isPro){
+        return null;
+    }
+
     return (
         <div className="px-3">
             <div className="bg-white/10 border-0">
@@ -34,7 +40,7 @@ export const FreeCounter = ({
                         <p>
                             {apiLimitCount} / {MAX_FREE_COUNTS} Free Generations
                         </p>
-                        <Progress classname="h-3" value={(apiLimitCount / MAX_FREE_COUNTS) * 100} />
+                        <Progress className="h-3" value={(apiLimitCount / MAX_FREE_COUNTS) * 100} />
                     </div>
                     <Button onClick={proModal.onOpen} className="w-full" variant="premium">
                         Upgrade
