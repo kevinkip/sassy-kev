@@ -17,8 +17,8 @@ const DashboardLayout = async ({
         <Sidebar isPro={isPro} apiLimitCount={apiLimitCount} />
       </div>
       <main className="md:pl-72 pb-10">
-        {/* @ts-expect-error Server Component */}
-        <Navbar /> {/* type error here */}
+        {/* @ts-expect-error Async Server Component */}
+        <Navbar /> 
         {children}
       </main>
     </div>
