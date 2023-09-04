@@ -16,7 +16,7 @@ export async function GET() {
             return new NextResponse("Unauthorized", { status: 401 });
         }
 
-        const userSubscription = await prisma?.userSubscription.findUnique({
+        const userSubscription = await prismadb?.userSubscription.findUnique({
             where: {
                 userId
             }
