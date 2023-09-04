@@ -3,29 +3,26 @@
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import Sidebar from "./sidebar";
+import { Sidebar } from "./sidebar";
 import { useState, useEffect } from "react";
 
-interface MobileSidebarProps {
+export const MobileSidebar = ({
+  apiLimitCount = 0,
+  isPro = false
+}: {
   apiLimitCount: number;
   isPro: boolean;
-}
+}) => {
+  const [isMounted, setIsMounted] = useState(false);
 
-const MobileSidebar = ({
-  apiLimitCount = 0,
-  isPro = false,
-}: MobileSidebarProps) => {
-    //when refreshing the page, hydration error occurs
-    //this will fix it
-    const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
-    useEffect(() => {
-        setIsMounted(true)
-    }, [])
+  if (!isMounted) {
+    return null;
+  }
 
-    if (!isMounted){
-        return null;
-    }
   return (
     <Sheet>
       <SheetTrigger>
@@ -33,11 +30,9 @@ const MobileSidebar = ({
           <Menu />
         </Button>
       </SheetTrigger>
-      <SheetContent side={"left"} className="p-0">
+      <SheetContent side="left" className="p-0">
         <Sidebar isPro={isPro} apiLimitCount={apiLimitCount} />
       </SheetContent>
     </Sheet>
   );
 };
-
-export default MobileSidebar;
