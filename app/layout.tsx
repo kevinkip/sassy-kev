@@ -13,6 +13,8 @@ export const metadata: Metadata = {
   description: 'Sassy AI by Kevin Kipkemboi',
 }
 
+//this is a test comment
+
 export default function RootLayout({
   children,
 }: {
