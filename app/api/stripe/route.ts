@@ -46,7 +46,7 @@ export async function GET() {
                             name: "Sassy AI",
                             description: "Unlimited Sassy AI Generations"
                         },
-                        unit_amount: 100, //equivalent to $1
+                        unit_amount: 900, //equivalent to $1
                         recurring: {
                             interval: "month"
                         }
