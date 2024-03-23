@@ -18,6 +18,7 @@ const instructionMessage: ChatCompletionRequestMessage = {
     content: "You're a code generator. You have to answer only in markdown code snippets. Use code comments for explanations."
 }
 
+export const maxDuration = 300;
 
 export async function POST(
     req: Request

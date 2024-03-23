@@ -11,6 +11,7 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
+export const maxDuration = 300;
 
 export async function POST(
     req: Request
